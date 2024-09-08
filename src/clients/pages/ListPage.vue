@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import ClientList from '../components/ClientList.vue';
+import UseClients from '@/clients/composables/UseClients';
+
+UseClients();
 
 
 </script>
@@ -10,9 +12,11 @@ import ClientList from '../components/ClientList.vue';
 
         <!-- Client List -->
         <ClientList />
-        <!-- PaginationNumber -->
 
-        <!-- Loading Modal -->
+
+        <!-- PaginationNumber    - paginacion -->
+
+        <!-- Loading Modal   -->
 
     </div>
 </template>
