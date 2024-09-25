@@ -6,16 +6,20 @@ import UseClients from '../composables/UseClients';
 
 const  { clients } = UseClients()
 
+
+
 </script>
 
 <template>
+    hola
     <ul>
-        <li>
-            <router-link :to="{ name : 'client-id' , params:{ id:1 } }"> Cliente 1 </router-link>
+        <li v-for="client of clients?.data" :key="client.id" >
+            <router-link :to="{ name : 'client-id' , params:{ id: client.id } }"> {{ client.name }}</router-link>
         </li>
+        <!-- 
         <li>
             <router-link :to="{ name : 'client-id' , params:{ id:2 } }"> Cliente 2 </router-link>
-        </li>
+        </li> -->
     </ul>
 </template>
 
