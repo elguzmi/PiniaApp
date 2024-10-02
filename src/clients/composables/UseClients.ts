@@ -1,14 +1,12 @@
 import { useQuery } from "@tanstack/vue-query";
-import type { Client, Datum } from "@/clients/interfaces/client";
+import type { Client } from "@/clients/interfaces/client";
 import clientsApi from "@/api/Clients-api";
 import { useClientsStore } from "@/store/clients";
 import { storeToRefs } from "pinia";
-import { computed, ref, watch } from "vue";
+import { computed, watch } from "vue";
 
 const getClients = async ( page : number ):Promise<Client>=>{
-    
     await new Promise( resolve => setTimeout(resolve,3000)) 
-
     const { data } = await clientsApi.get<Client>( `/clients?_page=${ page }`)
     return data
 }
@@ -20,17 +18,10 @@ const UseClients = ()=>{
     
     // Use query tiene en cache la data , pero igual hace la peticion para actualizarla
     const { isLoading , data } = useQuery( { queryKey : ['clients?page=', currentPage ] , queryFn :()=> getClients(currentPage.value),
-        staleTime : 1000 * 6
+        staleTime : 1000 * 2
     } )
 
     // stale time significa que no volver a hcaer la peticion basada en los segundos
-
-
-
-    // , staleTime : 1000 * 60 
-    //     ,select(data) {console.log('Nuevos Clientes Cargados') 
-    //         clientStore.setClients( data );
-    // },
 
     // cuando cambie la data se va a actualizar
     watch(data , clients =>{
@@ -54,9 +45,9 @@ const UseClients = ()=>{
         },
 
         //Getters [1,2,3,4,5]
-        totalPageNumber :computed(
-            ()=> [ ... new Array(totalPages.value)].map( (value, index) => index +1)
-        ),
+        // totalPageNumber :computed(
+        //     ()=> [ ... new Array(totalPages.value)].map( (value, index) => index +1)
+        // ),
     }
 } 
 

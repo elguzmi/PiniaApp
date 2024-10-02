@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import UseClients from '../composables/UseClients';
-
+//import UseClients from '../composables/UseClients';
 // va renderizar la lista de clientes que tenemos en el store
 // Pensar en composables function
+// const  { clients } = UseClients()
+import type { Client } from './../interfaces/client'
 
-const  { clients } = UseClients()
 
+interface Props {
+    clients: Client
+}
+
+defineProps<Props>();
 
 
 </script>
 
 <template>
-    hola
     <ul>
-        <li v-for="client of clients?.data" :key="client.id" >
+        <li v-for="client of $props.clients?.data" :key="client.id" >
             <router-link :to="{ name : 'client-id' , params:{ id: client.id } }"> {{ client.name }}</router-link>
         </li>
         <!-- 

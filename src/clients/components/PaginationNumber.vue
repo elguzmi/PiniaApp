@@ -1,19 +1,37 @@
 <script setup lang="ts">
+import { ref, toRef, watch } from 'vue';
 
-import UseClients from '../composables/UseClients';
-const { getPage , totalPageNumber, totalPages , currentPage } = UseClients()
-console.log("🚀 ~ totalPageNumber:", totalPageNumber)
+
+interface Props {
+    totalPages :number,
+    currentPage : number,
+}
+interface Emits{
+    (e: 'pageChanged' , page:number):void
+}
+
+const props = defineProps<Props>();
+defineEmits<Emits>();
+
+
+const currentPage = toRef( props , 'currentPage')
+const totalPages = toRef( props , 'totalPages')
+const  totalPageNumber = ref<number[]>([]);
+
+watch( totalPages , ()=>{totalPageNumber
+    totalPageNumber.value = [ ... new Array(totalPages.value)].map( (value, index) => index +1)
+}, {immediate: true}) // lo va a llamar apenas se cree , si se deja en false esperara a que cambie
 
 
 </script>
 <template>
     <div>
-        <button :disabled="currentPage === 1" @click="getPage( currentPage - 1 )">Anterior</button>
+        <button :disabled="currentPage === 1" @click="$emit( 'pageChanged' ,  currentPage - 1 )">Anterior</button>
         <button v-for="number of totalPageNumber" :key="number"
-            @click="getPage(number)" 
+            @click="$emit( 'pageChanged' ,  number )" 
             :class="{ active : currentPage === number}"
         >{{  number }}</button>
-        <button :disabled="totalPages === currentPage" @click="getPage( currentPage + 1 )"  >Siguiente</button>
+        <button :disabled="totalPages === currentPage" @click="$emit( 'pageChanged' ,  currentPage + 1 ) "  >Siguiente</button>
     </div>
 </template>
 
