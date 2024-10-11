@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import IconPinia from './shared/components/icons/IconPinia.vue';
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 
 
 </script>
@@ -20,6 +21,7 @@ import IconPinia from './shared/components/icons/IconPinia.vue';
   </header>
 
   <RouterView />
+  <VueQueryDevtools />
 </template>
 
 <style scoped>

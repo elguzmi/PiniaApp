@@ -14,6 +14,7 @@ const app = createApp(App)
 app.use(pinia);
 app.use(router)
 VueQueryPlugin.install(app ,{
+    enableDevtoolsV6Plugin : true,
     queryClientConfig: {
         defaultOptions: {
             queries: {
