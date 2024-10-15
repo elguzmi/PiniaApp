@@ -6,7 +6,7 @@ import { storeToRefs } from "pinia";
 import { computed, watch } from "vue";
 
 const getClients = async ( page : number ):Promise<Client>=>{
-    await new Promise( resolve => setTimeout(resolve,2500)) 
+    //await new Promise( resolve => setTimeout(resolve,2500)) 
     const { data } = await clientsApi.get<Client>( `/clients?_page=${ page }`)
     return data
 }
@@ -18,7 +18,7 @@ const UseClients = ()=>{
     
     // Use query tiene en cache la data , pero igual hace la peticion para actualizarla
     const { isLoading , data } = useQuery( { queryKey : ['clients?page=', currentPage ] , queryFn :()=> getClients(currentPage.value),
-        staleTime : 1000 * 2
+        // staleTime : 1000 * 2
     } )
 
     // stale time significa que no volver a hcaer la peticion basada en los segundos
